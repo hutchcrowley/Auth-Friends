@@ -3,10 +3,13 @@ import axios from 'axios'
 
 import { useHistory } from 'react-router-dom'
 
-const Login = (props) => {
-	const [ state, setState ] = useState(null)
+const Login = () => {
+	const [ state, setState ] = useState({
+		username: '',
+		password: '',
+	})
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		setState({
 			...state,
 			[e.target.name]: e.target.value,
@@ -16,12 +19,12 @@ const Login = (props) => {
 	// Using axios to send POST request to the server to retrieve JWT
 	let history = useHistory()
 
-	const login = (e) => {
+	const login = e => {
 		e.preventDefault()
 		// Sending username/ password to server
 		axios
 			.post('http://localhost:5000/api/login', state)
-			.then((res) => {
+			.then(res => {
 				console.log('RESPONSE: ', res)
 				localStorage.setItem('token', res.data.payload)
 				setState({
@@ -30,14 +33,14 @@ const Login = (props) => {
 				})
 				history.replace('/protected')
 			})
-			.catch((err) => console.log('ERROR: ', err.data), localStorage.removeItem('token'), history.push('/'))
+			.catch(err => console.log('ERROR: ', err.data), localStorage.removeItem('token'), history.push('/'))
 	}
 
 	return (
 		<div>
 			<form onSubmit={login}>
-				<input placeholder='username' name='username' value={state.username} onChange={handleChange} />
-				<input placeholder='password' name='password' value={state.password} onChange={handleChange} />
+				<input placeholder='username' name='username' value={state.username} onChange={e => handleChange(e)} />
+				<input placeholder='password' name='password' value={state.password} onChange={e => handleChange(e)} />
 				<button>Log In</button>
 			</form>
 		</div>

@@ -3,31 +3,31 @@ import React from 'react'
 import { axiosWithAuth } from './utils/axiosWithAuth'
 import { useHistory } from 'react-router-dom'
 
-const Friend = (props) => {
+const Friend = props => {
 	let history = useHistory()
 	console.log(history)
 
 	let id = props.id
 
-	const deleteFriend = (e) => {
+	const deleteFriend = e => {
 		console.log('FROM Friend: ', id)
 		e.preventDefault()
 		axiosWithAuth()
 			.delete(`/api/friends/${id}`)
-			.then((response) => {
+			.then(response => {
 				console.log(response.data)
 				props.setFriends(response.data)
 				history.push('/protected')
 			})
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 	}
 
-	const routeToUpdate = (e) => {
+	const routeToUpdate = e => {
 		e.preventDefault()
 		history.push(`/edit-friend/${id}`)
 	}
 
-	const routeToAdd = (e) => {
+	const routeToAdd = e => {
 		e.preventDefault()
 		history.push('/add-friend')
 	}

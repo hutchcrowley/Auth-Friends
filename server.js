@@ -1,8 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const port = 5000
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+
 const app = express()
+
+const port = 5000
 const token = 'esfeyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NUIhkufemQifQ'
 
 let nextId = 7
@@ -78,7 +80,7 @@ app.get('/api/friends', authenticator, (req, res) => {
 })
 
 app.get('/api/friends/:id', authenticator, (req, res) => {
-	const friend = friends.find((f) => f.id == req.params.id)
+	const friend = friends.find(f => f.id == req.params.id)
 
 	if (friend) {
 		res.status(200).json(friend)
@@ -98,7 +100,7 @@ app.post('/api/friends', authenticator, (req, res) => {
 app.put('/api/friends/:id', authenticator, (req, res) => {
 	const { id } = req.params
 
-	const friendIndex = friends.findIndex((f) => f.id == id)
+	const friendIndex = friends.findIndex(f => f.id == id)
 
 	if (friendIndex > -1) {
 		const friend = { ...friends[friendIndex], ...req.body }
@@ -113,7 +115,7 @@ app.put('/api/friends/:id', authenticator, (req, res) => {
 app.delete('/api/friends/:id', authenticator, (req, res) => {
 	const { id } = req.params
 
-	friends = friends.filter((f) => f.id !== Number(id))
+	friends = friends.filter(f => f.id !== Number(id))
 
 	res.send(friends)
 })

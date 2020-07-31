@@ -1,10 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 const initState = {
-  friends: [],
-  password: "",
-  username: "",
-  isLoading: null
-};
+	friends: [],
+	password: '',
+	username: '',
+}
 
-export const FriendsContext = createContext({ initState });
+export const FriendsContext = createContext({ initState })

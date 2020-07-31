@@ -12,7 +12,7 @@ const initialFriend = {
 	email: '',
 }
 
-const UpdateForm = (props) => {
+const UpdateForm = props => {
 	// Setting the initialFriend variable to state
 	const [ friend, setFriend ] = useState(initialFriend)
 	console.log(friend)
@@ -26,7 +26,7 @@ const UpdateForm = (props) => {
 	// This useEffect call searches through the friends array to find the friend who's id matches the id passed into the component on URL params. When it finds the correct friend, it assigns that friend to state.
 	useEffect(
 		() => {
-			const editingFriend = props.friends.find((friend) => friend.id === Number(id))
+			const editingFriend = props.friends.find(friend => friend.id === Number(id))
 
 			if (editingFriend) {
 				setFriend(editingFriend)
@@ -39,7 +39,7 @@ const UpdateForm = (props) => {
 	// let history = useHistory();
 	// console.log(history);
 
-	const changeHandler = (e) => {
+	const changeHandler = e => {
 		e.persist()
 		let value = e.target.value
 		setFriend({
@@ -48,7 +48,7 @@ const UpdateForm = (props) => {
 		})
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault()
 
 		updateFriend(id, friend)
@@ -58,12 +58,12 @@ const UpdateForm = (props) => {
 	const updateFriend = (id, friend) => {
 		axiosWithAuth()
 			.put(`/api/friends/${id}`, friend)
-			.then((response) => {
+			.then(response => {
 				console.log('PUT request success! payload: ', response.data)
 				props.setFriends(response.data)
 			})
 			.then(history.push('/protected'))
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 	}
 	return (
 		<div className='update-form'>

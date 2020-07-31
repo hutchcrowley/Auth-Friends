@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Switch, useHistory } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import Home from './Components/Home'
 import Login from './Components/Login'
@@ -22,35 +22,35 @@ const App = () => {
 
 	const [ isLoading, setIsLoading ] = useState()
 
-	const history = useHistory()
-
-	useEffect(() => {
-		axiosWithAuth()
-			.get(`/api/friends`)
-			.then(setIsLoading(true))
-			.then((res) => {
-				console.log(res.data)
-				setFriends(res.data)
-				setIsLoading(false)
-				console.log(isLoading)
-			})
-			.catch((err) => console.log(err))
-	}, [])
+	useEffect(
+		() => {
+			axiosWithAuth()
+				.get(`/api/friends`)
+				.then(setIsLoading(true))
+				.then(res => {
+					console.log(res.data)
+					setFriends(res.data)
+					setIsLoading(false)
+				})
+				.catch(err => console.log(err))
+		},
+		[ isLoading ],
+	)
 
 	return (
-		<FriendsContext.Provider value={{ friends, isLoading, setFriends }}>
+		<FriendsContext.Provider value={{ friends, setFriends }}>
 			<div className='App'>
 				<Header />
 				<Switch>
-					<ProtectedRoute exact path='/protected' component={FriendsList} />
-					<Route exact path='/' component={Home} />
+					<ProtectedRoute path='/protected' component={FriendsList} />
+					<Route path='/' component={Home} />
 					<Route path='/login' component={Login} />
 					<Route path='/add-friend'>
 						<FriendForm setFriends={setFriends} />
 					</Route>
 					<Route
 						path='/edit-friend/:id'
-						render={(props) => <UpdateForm {...props} friends={friends} setFriends={setFriends} />}
+						render={props => <UpdateForm {...props} friends={friends} setFriends={setFriends} />}
 					/>
 					<Route component={NoMatch} />
 				</Switch>
