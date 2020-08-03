@@ -4,7 +4,6 @@ import { axiosWithAuth } from './utils/axiosWithAuth'
 import { useHistory } from 'react-router-dom'
 
 const initialFriend = {
-	id: Date.now(),
 	name: '',
 	age: '',
 	email: '',
@@ -15,7 +14,7 @@ const FriendForm = props => {
 
 	const [ newFriend, setNewFriend ] = useState(initialFriend)
 
-	const handleChanges = e => {
+	const handleChange = e => {
 		e.persist()
 		let value = e.target.value
 		console.log(value)
@@ -40,33 +39,33 @@ const FriendForm = props => {
 	return (
 		<div className='update-form'>
 			<h2>Add New Friend!</h2>
-			<form onSubmit={handleSubmit}>
+			<form>
 				<input
 					className='update-input'
 					type='text'
 					name='name'
-					onChange={handleChanges}
-					placeholder='name'
 					value={newFriend.name}
+					onChange={e => handleChange(e)}
+					placeholder='name'
 				/>
 
 				<input
 					className='update-input'
 					name='age'
-					type='text'
-					onChange={handleChanges}
-					placeholder='age'
 					value={newFriend.age}
+					type='number'
+					onChange={e => handleChange(e)}
+					placeholder='age'
 				/>
 				<input
 					className='update-input'
 					name='email'
-					type='text'
-					onChange={handleChanges}
-					placeholder='email'
 					value={newFriend.email}
+					type='email'
+					onChange={e => handleChange(e)}
+					placeholder='email'
 				/>
-				<button className='md-button' onClick={handleSubmit}>
+				<button className='md-button' onClick={e => handleSubmit(e)}>
 					Add Friend
 				</button>
 			</form>

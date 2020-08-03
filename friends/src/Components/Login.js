@@ -10,6 +10,7 @@ const Login = () => {
 	})
 
 	const handleChange = e => {
+		console.log('e in login handleChange: ', e)
 		setState({
 			...state,
 			[e.target.name]: e.target.value,
@@ -31,7 +32,7 @@ const Login = () => {
 					username: '',
 					password: '',
 				})
-				history.replace('/protected')
+				history.push('/protected')
 			})
 			.catch(err => console.log('ERROR: ', err.data), localStorage.removeItem('token'), history.push('/'))
 	}

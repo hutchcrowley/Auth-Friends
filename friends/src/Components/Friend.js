@@ -11,13 +11,11 @@ const Friend = props => {
 
 	const deleteFriend = e => {
 		console.log('FROM Friend: ', id)
-		e.preventDefault()
 		axiosWithAuth()
 			.delete(`/api/friends/${id}`)
 			.then(response => {
 				console.log(response.data)
 				props.setFriends(response.data)
-				history.push('/protected')
 			})
 			.catch(err => console.log(err))
 	}

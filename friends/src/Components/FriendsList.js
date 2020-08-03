@@ -6,7 +6,7 @@ import Header from './Header'
 
 import { FriendsContext } from '../Contexts/FriendsContext'
 
-const FriendsList = props => {
+const FriendsList = () => {
 	const { friends, isLoading, setFriends } = useContext(FriendsContext)
 
 	return (
